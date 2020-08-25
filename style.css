@@ -1,0 +1,14 @@
+.table input[type="number"],
+input[type="text"] {
+  width: 60%;
+}
+h2,
+h3 {
+  text-align: center;
+}
+.weapon-selector {
+  width: 200px;
+}
+.weapon-class-radio {
+  margin-left: 20%;
+}

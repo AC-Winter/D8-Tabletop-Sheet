@@ -1,0 +1,749 @@
+Weighted
+<link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="header">
+  <h2>HelgrinD8</h2>
+  <p class="text-center"><small class="text-muted">a Grimdark Tabletop Adventure</small></p>
+</div>
+<br><br>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-12" id="character-info-block">
+      <p class="h3 text-muted">Character Info</p>
+      <table class="table">
+        <tr>
+          <td><input class="h5" type="text" value="Katarina Sorel"><br>Name</td>
+          <td>
+            <select id="subrace-selector" onchange="updateRacialBonuses(this);">
+              <option value="canthan" label="Canthan">
+              <option value="elonian" label="Elonian">
+              <option value="tyrian" label="Tyrian">
+            </select>
+            <select id="race-selector" onchange="updateRaceTraits(this);">
+              <optgroup label="Common Races">
+                <option value="human" label="Human">
+                <option value="sylph" label="Sylph">
+                <option value="giantkin" label="Giantkin">
+                <option value="sveln" label="Sveln">
+                <option value="asendrii" label="Asendrii">
+              </optgroup>
+              <optgroup label="Uncommon Races">
+                <option value="anarathi" label="Anarathi">
+                <option value="sota-ka" label="S'ota-Ka">
+              </optgroup>
+            </select>
+            <br>Race
+          </td>
+          <td><input class="h5" type="text" value="City Guard"><br>Background</td>
+          <td><input id="character-age" class="h5" type="text" value="37" min="20" max="120"><br>Age</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input id="character-size" class="h5" type="text" value="Medium" readonly><br>Size</td>
+          <td><input id="character-height" class="h5" type="number" value="151" min="140" max="210"><br>Height (cm)</td>
+          <td><input id="character-weight" class="h5" type="number" value="46" min="45" max="150"><br>Weight (kg)</td>
+        </tr>
+      </table>
+    </div>
+    <div id="sheet-tabs">
+      <button class="tab-button" value="primary" onclick="setPage(this)" disabled="true">Primary</button>
+      <button class="tab-button" value="skills" onclick="setPage(this)">Skills</button>
+      <button class="tab-button" value="combat" onclick="setPage(this)">Combat</button>
+      <button class="tab-button" value="magic" onclick="setPage(this)">Magic</button>
+      <button class="tab-button" value="equipment" onclick="setPage(this)">Equipment</button>
+    </div>
+  </div>
+  <br>
+
+  <div class="tab" id="primary-tab">
+    <div class="row">
+      <div class="col-4" id="abilities-block">
+        <p class="h3 text-muted text-center">Ability Scores</p>
+        <table class="table" id="ability-scores">
+          <tr id="body-scores">
+            <td>
+              <table id="strength-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+                <tr>
+                  <th>Strength</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="strengthMod" value="-2" readonly>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table id="dexterity-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+                <tr>
+                  <th>Dexterity</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="dexterityMod" value="-2" readonly>
+                    <input class="ability-mod" id="dexterityModWeighted" value="-2" readonly>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table id="endurance-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+                <tr>
+                  <th>Endurance</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="enduranceMod" value="-2" readonly>
+                    <input class="ability-mod" id="enduranceModWeighted" value="-2" readonly>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table id="fortitude-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+                <tr>
+                  <th>Fortitude</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="fortitudeMod" value="-2" readonly>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr id="mind-scores">
+            <td>
+              <table id="intelligence-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="intelligenceMod" value="-2" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Intelligence</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table id="wisdom-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="wisdomMod" value="-2" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Wisdom</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table id="arcana-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="arcanaMod" value="-2" readonly>
+                    <input class="ability-mod" id="arcanaModWeighted" value="-2" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Arcana</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table id="cunning-block" class="ability-block text-center">
+                <tr>
+                  <td>
+                    <input class="ability-mod" id="cunningMod" value="-2" readonly>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Cunning</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="ability-score" type="number" , value="20" onchange="updateModifiers()">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab" id="skills-tab" style="display: none;">
+    <div class="row">
+      <div class="col-4" id="skills-block">
+        <p class="h3 text-muted text-center">Skills</p>
+        <br>
+        <h5>Combat</h5>
+        <table class="table" id="combat-skills">
+          <tr>
+            <th></th>
+            <th>Skill Bonus</th>
+            <th>Experience</th>
+          </tr>
+          <tr class="skill-block" parent-skill="" parent-ability="Strength">
+            <td>Power</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+          <tr class="skill-block" parent-skill="" parent-ability="Dexterity">
+            <td>Finesse</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+          <tr class="skill-block" parent-skill="" parent-ability="Wisdom">
+            <td>Accuracy</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+          <tr class="skill-block" parent-skill="" parent-ability="Arcana">
+            <td>Control</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+        </table>
+        <br>
+        <h5>Agility</h5>
+        <table class="table" id="agility-skills">
+          <tr>
+            <th></th>
+            <th>Skill Bonus</th>
+            <th>Experience</th>
+          </tr>
+          <tr class="primary-skill-block" parent-skill="" parent-ability="Dexterity">
+            <td>Agility</td>
+            <td><input id="agility" class="skill-bonus" type="number"></td>
+            <td></td>
+          </tr>
+          <tr class="skill-block" parent-skill="agility" parent-ability="Dexterity">
+            <td>Acrobatics</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+          <tr class="skill-block" parent-skill="agility" parent-ability="Wisdom">
+            <td>Ride</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+          <tr class="skill-block" parent-skill="agility" parent-ability="Cunning">
+            <td>Sleight of Hand</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+          <tr class="skill-block" parent-skill="agility" parent-ability="Cunning">
+            <td>Stealth</td>
+            <td><input class="skill-bonus" readonly></td>
+            <td><input class="skill-experience" type="number" onchange="updateSkills()"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-6" id="paths-block">
+        <p class="h3 text-muted text-center">Paths</p>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <!-- needs sight, perception, speed, actions -->
+  <!-- add block for attacks -->
+  <!-- add CMB to defenses block [str+dex] -->
+  <div class="tab" id="combat-tab" style="display: none;">
+    <div class="row">
+      <div class="col-12" id="bars-block">
+        <table>
+          <tr>
+            <div id="health-bar">
+              <p class="h5 text-center">Health</p>
+              <table class="table text-center">
+                <tr>
+                  <td class="text-muted text-right">current</td>
+                  <td><input type="number" id="health-current"></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="text-muted text-right">maximum</td>
+                  <td>
+                    <input id="health-max" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td>
+                    <input id="health-base" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td><input id="health-traits" type="number"></td>
+                  <td><input id="health-paths" type="number"></td>
+                  <td><input id="health-temp" type="number"></td>
+                </tr>
+                <tr>
+                  <td class="text-muted text-right">threshold</td>
+                  <td>
+                    <input id="health-threshold" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td>base</td>
+                  <td>traits</td>
+                  <td>paths</td>
+                  <td>temp</td>
+                </tr>
+              </table>
+            </div>
+          </tr>
+          <tr>
+            <div id="stamina-bar">
+              <p class="h5 text-center">Stamina</p>
+              <table class="table text-center">
+                <tr>
+                  <td class="text-muted text-right">current</td>
+                  <td><input type="number" id="stamina-current"></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="text-muted text-right">maximum</td>
+                  <td>
+                    <input id="stamina-max" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td>
+                    <input id="stamina-base" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td><input id="stamina-traits" type="number"></td>
+                  <td><input id="stamina-paths" type="number"></td>
+                  <td><input id="stamina-temp" type="number"></td>
+                </tr>
+                <tr>
+                  <td class="text-muted text-right">threshold</td>
+                  <td>
+                    <input id="stamina-threshold" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td>base</td>
+                  <td>traits</td>
+                  <td>paths</td>
+                  <td>temp</td>
+                </tr>
+              </table>
+            </div>
+          </tr>
+          <tr>
+            <div id="mana-bar">
+              <p class="h5 text-center">Mana</p>
+              <table class="table text-center">
+                <tr>
+                  <td class="text-muted text-right">current</td>
+                  <td><input type="number" id="mana-current"></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td class="text-muted text-right">maximum</td>
+                  <td>
+                    <input id="mana-max" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td>
+                    <input id="mana-base" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td><input id="mana-traits" type="number"></td>
+                  <td><input id="mana-paths" type="number"></td>
+                  <td><input id="mana-temp" type="number"></td>
+                </tr>
+                <tr>
+                  <td class="text-muted text-right">threshold</td>
+                  <td>
+                    <input id="mana-threshold" readonly>
+                    <button class="formula">f(x)</button>
+                  </td>
+                  <td>base</td>
+                  <td>traits</td>
+                  <td>paths</td>
+                  <td>temp</td>
+                </tr>
+              </table>
+            </div>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4" id="defenses-block">
+        <p class="h3 text-muted text-center">Defenses</p>
+        <table class="table" id="defenses">
+          <tr>
+            <td></td>
+            <th>
+              <p class="text-center">Total</p>
+            </th>
+            <th>
+              <p class="text-center">Flat-Foot</p>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Armor</p>
+            </th>
+            <td><input id="armor-total" value="0" readonly></td>
+            <td><input id="armor-flat" value="0" readonly></td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Resistance</p>
+            </th>
+            <td><input id="resist-total" value="0" readonly></td>
+            <td><input id="resist-flat" value="0" readonly></td>
+          </tr>
+          <tr>
+            <th>
+              <p>
+                <p class="text-right">Defense</p>
+              </p>
+              <p class="text-right"><small class="text-muted">Half</small></p>
+            </th>
+            <td>
+              <p><input id="defense-total" value="0" readonly></p>
+              <p><input id="defense-total-half" value="0" readonly></p>
+            </td>
+            <td>
+              <p><input id="defense-flat" value="0" readonly></p>
+              <p><input id="defense-flat-half" value="0" readonly></p>
+            </td>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Weight</p>
+            </th>
+            <td><input class="value-referance" id="weight-total" value="0" readonly></td>
+          </tr>
+        </table>
+        <table class="table" id="saves">
+          <tr>
+            <td></td>
+            <th>
+              <p class="text-center">Save Bonus</p>
+            </th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Reflex</p>
+            </th>
+            <td><input id="reflex-save" value="0" readonly></td>
+            <td><button class="die-8">Roll</button></td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Body</p>
+            </th>
+            <td><input id="body-save" value="0" readonly></td>
+            <td><button class="die-8">Roll</button></td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Will</p>
+            </th>
+            <td><input id="will-save" value="0" readonly></td>
+            <td><button class="die-8">Roll</button></td>
+          </tr>
+          <tr>
+            <th>
+              <p class="text-right">Might</p>
+            </th>
+            <td><input id="might-save" value="0" readonly></td>
+            <td><button class="die-8">Roll</button></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-4" id="attacks-block">
+        <p class="h3 text-muted text-center">Attacks</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab" id="equipment-tab" style="display: none;">
+    <div class="col-8" id="equipment-block">
+      <p class="h3 text-muted text-center">Equipment</p>
+      <table class="table" id="armor">
+        <tr id="equipped-armor">
+          <th>Armor</th>
+          <td>
+            <div>
+              <input style="display: none;" id="custom-armor" type="text" placeholder="Custom Armor">
+              <select id="armor-selector" onchange="equipArmor();">
+                <option av="0" dv="0" wv="0" value="unarmored">Unarmored</option>
+                <optgroup id="simple-armor" value="simple-armor" label="Simple Armor">
+                  <option av="0" dv="1" wv="2" value="padded">Padded</option>
+                  <option av="1" dv="2" wv="4" value="leather">Leather</option>
+                  <option av="2" dv="2" wv="5" value="studded">Studded Leather</option>
+                </optgroup>
+                <optgroup id="advanced-armor" value="advanced-armor" label="Advanced Armor">
+                  <option av="3" dv="3" wv="7" value="scalemail">Scalemail</option>
+                  <option av="4" dv="3" wv="9" value="breastplate">Breastplate</option>
+                </optgroup>
+                <optgroup id="unique-armor" value="unique-armor" label="Unique Armor">
+                  <option av="3" dv="4" wv="8" value="dragonscale">Dragonscale</option>
+                </optgroup>
+              </select>
+            </div>
+            <p class="text-left">Custom:
+              <input id="custom-armor-check" type="checkbox" onchange="isCustomArmor()">
+            </p>
+          </td>
+          <td class="text-center">
+            <p>Armor</p>
+            <input class="armor-value" id="armorAv" type="number" value="0" onchange="updateDefenses();" readonly>
+          </td>
+          <td class="text-center">
+            <p>Defense</p>
+            <input class="armor-value" id="armorDv" type="number" value="0" onchange="updateDefenses();" readonly>
+          </td>
+          <td class="text-center">
+            <p>Weight</p>
+            <input class="armor-value" id="armorWv" type="number" value="0" onchange="updateDefenses();" readonly>
+          </td>
+        </tr>
+        <tr id="armor-mastery">
+          <td></td>
+          <td>Mastery:</td>
+          <td>
+            <p class="text-center">Simple:
+              <input id="armor-mastery-simple" type="checkbox" onchange="equipArmor();"></p>
+          </td>
+          <td>
+            <p class="text-center">Advanced:
+              <input id="armor-mastery-advanced" type="checkbox" onchange="equipArmor();"></p>
+          </td>
+          <td>
+            <p class="text-center">Unique:
+              <input id="armor-mastery-unique" type="checkbox" onchange="equipArmor();"></p>
+          </td>
+        </tr>
+        <tr id="equipped-shield">
+          <th>Shield</th>
+          <td>
+            <div>
+              <input style="display: none;" id="custom-shield" type="text" placeholder="Custom Shield">
+              <select id="shield-selector" onchange="equipShield();">
+                <option av="0" dv="0" wv="0" value="none">None</option>
+                <optgroup id="simple-armor" value="simple-armor" label="Simple Armor">
+                  <option av="1" wv="2" value="buckler">Buckler</option>
+                  <option av="2" wv="4" value="half-shield">Half-Shield</option>
+                  <option av="3" wv="7" value="round-shield">Round Shield</option>
+                </optgroup>
+                <optgroup id="advanced-armor" value="advanced-armor" label="Advanced Armor">
+                  <option av="4" wv="10" value="kite-shield">Kite Shield</option>
+                  <option av="6" wv="14" value="tower-shield">Tower Shield</option>
+                </optgroup>
+                <optgroup id="unique-armor" value="unique-armor" label="Unique Armor">
+                  <option av="1" wv="3" value="lantern-shield">Lantern Shield</option>
+                </optgroup>
+              </select>
+            </div>
+            <p class="text-left">Custom:
+              <input id="custom-shield-check" type="checkbox" onchange="isCustomShield()">
+            </p>
+          </td>
+          <td class="text-center">
+            <p>Armor</p>
+            <input class="shield-value" id="shieldAv" type="number" value="0" onchange="updateDefenses();" readonly>
+          </td>
+          <td></td>
+          <td class="text-center">
+            <p>Weight</p>
+            <input class="shield-value" id="shieldWv" type="number" value="0" onchange="updateDefenses();" readonly>
+          </td>
+        </tr>
+        <tr id="shield-mastery">
+          <td></td>
+          <td>Mastery:</td>
+          <td>
+            <p class="text-center">Simple:
+              <input id="shield-mastery-simple" type="checkbox" onchange="equipShield();"></p>
+          </td>
+          <td>
+            <p class="text-center">Advanced:
+              <input id="shield-mastery-advanced" type="checkbox" onchange="equipShield();"></p>
+          </td>
+          <td>
+            <p class="text-center">Unique:
+              <input id="shield-mastery-unique" type="checkbox" onchange="equipShield();"></p>
+          </td>
+        </tr>
+      </table>
+      <table class="table" id="weapons">
+        <tr class="text-center">
+          <td></td>
+          <td></td>
+          <th>Weapon Type</th>
+          <th>Weapon Class</th>
+          <th>Weapon</th>
+          <th>Keywords</th>
+          <th>Attack Bonus</th>
+          <td></td>
+          <th>Critical Bonus</th>
+          <td></td>
+          <th>Damage Die</th>
+          <th>Damage Type</th>
+          <td></td>
+        </tr>
+        <tr class="text-center" id="weapon-lookup">
+          <td></td>
+          <td></td>
+          <td>
+            <input class="weapon-class-radio" type="radio" id="simple" name="weapon-class" value="simple" onclick="setWeaponClass()" checked>
+            <label for="simple">Simple</label><br>
+            <input class="weapon-class-radio" type="radio" id="advanced" name="weapon-class" value="advanced" onclick="setWeaponClass()">
+            <label for="advanced">Advanced</label><br>
+            <input class="weapon-class-radio" type="radio" id="unique" name="weapon-class" value="unique" onclick="setWeaponClass()">
+            <label for="unique">Unique</label>
+          </td>
+          <td class="weapon-class">Melee</td>
+          <td id="weapon-selectors">
+            <select class="weapon-selector" id="simple-weapon-selector" onchange="lookupWeapon();">
+              <optgroup class="melee-weapons" value="melee-weapons" label="Melee">
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="0" keywords="[]" damage-die="2d2" damage-type="bludgeoning" value="Unarmed">Unarmed</option>
+                <option weapon-type="melee" attack-bonus-1="8" attack-bonus-2="2" critical-bonus="3" keywords="[]" damage-die="1d3" damage-type="piercing" value="Dagger">Dagger</option>
+                <option weapon-type="melee" attack-bonus-1="2" attack-bonus-2="2" critical-bonus="0" keywords="[]" damage-die="1d5" damage-type="slashing" value="Shortsword">Shortsword</option>
+                <option weapon-type="melee" attack-bonus-1="2" attack-bonus-2="8" critical-bonus="0" keywords="[2H]" damage-die="1d8" damage-type="slashing" value="Broadsword">Broadsword</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="8" critical-bonus="0" keywords="[2H]" damage-die="1d10" damage-type="slashing" value="Bastard Sword">Bastard Sword</option>
+                <option weapon-type="melee" attack-bonus-1="1" attack-bonus-2="8" critical-bonus="0" keywords="[]" damage-die="1d5" damage-type="bludgeoning" value="Club">Club</option>
+                <option weapon-type="melee" attack-bonus-1="2" attack-bonus-2="4" critical-bonus="0" keywords="[]" damage-die="1d5" damage-type="bludgeoning" value="Quarterstaff">Quarterstaff</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="0" keywords="[Versatile(d8)]" damage-die="1d6" damage-type="slashing" value="Longsword">Longsword</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="3" keywords="[2H]" damage-die="1d6" damage-type="piercing" value="Spear">Spear</option>
+                <option weapon-type="melee" attack-bonus-1="1" attack-bonus-2="8" critical-bonus="0" keywords="[]" damage-die="1d3" damage-type="piercing" value="Knuckles">Knuckles</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="4" critical-bonus="0" keywords="[2H]" damage-die="1d6" damage-type="slashing" value="Pike">Pike</option>
+              </optgroup>
+              <optgroup class="ranged-weapons" value="ranged-weapons" label="Ranged">
+                <option weapon-type="ranged" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="0" keywords="[]" damage-die="1dn" damage-type="bludgeoning" value="Improvised Thrown">Improvised Thrown</option>
+                <option weapon-type="ranged" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="0" keywords="[]" damage-die="1dn" damage-type="bludgeoning" value="Improvised Thrown">Improvised Thrown</option>
+                <option weapon-type="ranged" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="0" keywords="[]" damage-die="1dn" damage-type="bludgeoning" value="Improvised Thrown">Improvised Thrown</option>
+
+              </optgroup>
+              <optgroup class="magic-weapons" value="magic-weapons" label="Magic">
+                <option weapon-type="magic" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="0" keywords="[]" damage-die="1d3" damage-type="force" value="Channel">Channel</option>
+
+              </optgroup>
+            </select>
+            <select style="display: none;" class="weapon-selector" id="advanced-weapon-selector" onchange="lookupWeapon();">
+              <optgroup class="melee-weapons" value="melee-weapons" label="Melee">
+                <option weapon-type="melee" attack-bonus-1="8" attack-bonus-2="3" critical-bonus="5" keywords="[]" damage-die="1d2" damage-type="piercing" value="Stiletto">Stiletto</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="1" critical-bonus="2" keywords="[]" damage-die="1d4" damage-type="slashing" value="Rapier">Rapier</option>
+                <option weapon-type="melee" attack-bonus-1="4" attack-bonus-2="1" critical-bonus="3" keywords="[]" damage-die="1d4" damage-type="piercing" value="Estoc">Estoc</option>
+                <option weapon-type="melee" attack-bonus-1="2" attack-bonus-2="8" critical-bonus="2" keywords="[]" damage-die="1d4" damage-type="bludgeoning" value="Spiked Mace">Spiked Mace</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="2" critical-bonus="0" keywords="[2H]" damage-die="1d8" damage-type="slashing" value="Guisarm">Guisarm</option>
+                <option weapon-type="melee" attack-bonus-1="2" attack-bonus-2="3" critical-bonus="2" keywords="[2H]" damage-die="1d6" damage-type="piercing" value="Polearm">Polearm</option>
+              </optgroup>
+              <optgroup class="ranged-weapons" value="ranged-weapons" label="Ranged">
+
+              </optgroup>
+              <optgroup class="magic-weapons" value="magic-weapons" label="Magic">
+
+              </optgroup>
+              <optgroup class="firearm-weapons" value="firearm-weapons" label="Firearms">
+
+              </optgroup>
+            </select>
+            <select style="display: none;" class="weapon-selector" id="unique-weapon-selector" onchange="lookupWeapon();">
+              <optgroup class="melee-weapons" value="melee-weapons" label="Melee">
+                <option weapon-type="melee" attack-bonus-1="2" attack-bonus-2="4" critical-bonus="2" keywords="[]" damage-die="1d3" damage-type="slashing" value="Bladed Knuckles">Bladed Knuckles</option>
+                <option weapon-type="melee" attack-bonus-1="3" attack-bonus-2="3" critical-bonus="3" keywords="[]" damage-die="1d5" damage-type="slashing" value="Sickle">Sickle</option>
+                <option weapon-type="melee" attack-bonus-1="4" attack-bonus-2="4" critical-bonus="5" keywords="[2H]" damage-die="1d8" damage-type="slashing" value="Scythe">Scythe</option>
+
+              </optgroup>
+              <optgroup class="ranged-weapons" value="ranged-weapons" label="Ranged">
+
+              </optgroup>
+              <optgroup class="magic-weapons" value="magic-weapons" label="Magic">
+
+              </optgroup>
+              <optgroup class="firearm-weapons" value="firearm-weapons" label="Firearms">
+
+              </optgroup>
+            </select>
+          </td>
+          <td class="weapon-keywords"></td>
+          <td class="attack-bonus">(3/3)</td>
+          <td></td>
+          <td class="critical-bonus">+0</td>
+          <td></td>
+          <td class="damage-die">2d2</td>
+          <td class="damage-type">bludeoning</td>
+        </tr>
+        <tr class="text-center" id="primary-weapon">
+          <td><button class="weapon-equip" onclick="equipWeapon('primary');">Equip</button></td>
+          <td><button class="weapon-unequip" onclick="unequipWeapon('primary');">Empty</button></td>
+          <th class="text-right">Primary</th>
+          <td class="weapon-class">Melee</td>
+          <td class="weapon-name">Dagger</td>
+          <td class="weapon-keywords">Versatile(d4)</td>
+          <td class="attack-bonus">(0/0)</td>
+          <td><button class="die-8 weapon-attack-roll" onclick="">Roll</button></td>
+          <td class="critical-bonus">+0</td>
+          <td><button class="die-8 weapon-critical-roll" onclick="">Roll</button></td>
+          <td class="damage-die">1d3</td>
+          <td class="versatile-die" style="display: none;"></td>
+          <td class="damage-type">piercing</td>
+          <td><button class="die-8 weapon-damage-roll" onclick="">Roll</button></td>
+        </tr>
+        <tr class="text-center" id="secondary-weapon">
+          <td><button class="weapon-equip" onclick="equipWeapon('secondary');">Equip</button></td>
+          <td><button class="weapon-unequip" onclick="unequipWeapon('secondary');">Empty</button></td>
+          <th class="text-right">Secondary</th>
+          <td class="weapon-class">Melee</td>
+          <td class="weapon-name">Dagger</td>
+          <td class="weapon-keywords"></td>
+          <td class="attack-bonus">(0/0)</td>
+          <td><button class="die-8 weapon-attack-roll" onclick="">Roll</button></td>
+          <td class="critical-bonus">+0</td>
+          <td><button class="die-8 weapon-critical-roll" onclick="">Roll</button></td>
+          <td class="damage-die">1d3</td>
+          <td class="versatile-die" style="display: none;"></td>
+          <td class="damage-type">piercing</td>
+          <td><button class="die-8 weapon-damage-roll" onclick="">Roll</button></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
